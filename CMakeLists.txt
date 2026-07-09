@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(autoworker CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # --- Coverage build type -----------------------------------------------------
@@ -45,8 +45,10 @@ enable_testing()
 
 add_executable(autoworker_tests
     tests/test_autoworker.cpp
-    tests/tests_work_context.cpp
+    tests/test_work_context.cpp
+    tests/test_echo_node.cpp
     src/work_context.cpp
+    src/echo_node.cpp
 )
 target_link_libraries(autoworker_tests
     PRIVATE

@@ -36,6 +36,6 @@ cmake --build build --target coverage
 ## Convenience Commands
 
 ```sh
-rm -rf build && cmake -B build -DCMAKE_BUILD_TYPE=Debug 2>&1 | tail -3 && cmake --build build 2>&1 && cd build && ctest --output-on-failure && cd ..
+cmake -B build -DCMAKE_BUILD_TYPE=Coverage && cmake --build build && cmake --build build --target coverage
 ```
 
