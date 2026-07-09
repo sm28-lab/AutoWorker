@@ -1,41 +1,33 @@
-# autoworker
+# AutoWorker
+
+AI worker graph engine with embedded Lua scripting.
 
 ## Requirements
 
-- CMake 3.14+
-- C++17 compiler
-- gcovr (for coverage): `brew install gcovr`
+- Java 21+
+- Gradle 8+ (wrapper included)
 
 ## Build
 
 ```sh
-cmake -B build -DCMAKE_BUILD_TYPE=Debug
-cmake --build build
+./gradlew build
 ```
 
 ## Run
 
 ```sh
-./build/autoworker
+./gradlew run
 ```
 
 ## Test
 
 ```sh
-cd build && ctest --output-on-failure
+./gradlew test
 ```
 
 ## Coverage
 
 ```sh
-cmake -B build -DCMAKE_BUILD_TYPE=Coverage
-cmake --build build
-cmake --build build --target coverage
-```
-
-## Convenience Commands
-
-```sh
-cmake -B build -DCMAKE_BUILD_TYPE=Coverage && cmake --build build && cmake --build build --target coverage
+./gradlew test jacocoTestReport
 ```
 

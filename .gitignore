@@ -1,6 +1,6 @@
 build/
-*.o
-*.out
-*.gcno
-*.gcda
-coverage/
+.gradle/
+*.class
+.idea/
+*.iml
+out/
