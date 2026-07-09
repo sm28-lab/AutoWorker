@@ -12,17 +12,17 @@ if(CMAKE_BUILD_TYPE STREQUAL "Coverage")
     add_link_options(${COVERAGE_FLAGS})
 endif()
 
-# --- Main library ------------------------------------------------------------
-
-add_library(autoworker_lib INTERFACE)
-target_include_directories(autoworker_lib INTERFACE include)
-
-add_executable(autoworker src/main.cpp)
-target_link_libraries(autoworker PRIVATE autoworker_lib)
-
-# --- Tests -------------------------------------------------------------------
+# --- Dependencies ------------------------------------------------------------
 
 include(FetchContent)
+
+FetchContent_Declare(
+    nlohmann_json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG        v3.11.3
+)
+FetchContent_MakeAvailable(nlohmann_json)
+
 FetchContent_Declare(
     googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
@@ -30,10 +30,23 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
+# --- Main library (header-only for now, will add .cpp sources later) ----------
+
+add_library(autoworker_lib INTERFACE)
+target_include_directories(autoworker_lib INTERFACE include)
+target_link_libraries(autoworker_lib INTERFACE nlohmann_json::nlohmann_json)
+
+add_executable(autoworker src/main.cpp)
+target_link_libraries(autoworker PRIVATE autoworker_lib)
+
+# --- Tests -------------------------------------------------------------------
+
 enable_testing()
 
 add_executable(autoworker_tests
     tests/test_autoworker.cpp
+    tests/tests_work_context.cpp
+    src/work_context.cpp
 )
 target_link_libraries(autoworker_tests
     PRIVATE
